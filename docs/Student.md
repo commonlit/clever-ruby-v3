@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ell_status** | **String** |  | [optional] 
 **enrollments** | [**Array&lt;SchoolEnrollment&gt;**](SchoolEnrollment.md) |  | [optional] 
 **ext** | **Object** |  | [optional] 
+**frl_status** | **String** |  | [optional] 
 **gender** | **String** |  | [optional] 
 **grade** | **String** |  | [optional] 
 **graduation_year** | **String** |  | [optional] 
