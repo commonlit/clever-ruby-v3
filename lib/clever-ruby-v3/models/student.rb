@@ -21,6 +21,8 @@ module CleverV3
 
     attr_accessor :ell_status
 
+    attr_accessor :frl_status
+
     attr_accessor :enrollments
 
     attr_accessor :ext
@@ -90,6 +92,7 @@ module CleverV3
         :'ell_status' => :'ell_status',
         :'enrollments' => :'enrollments',
         :'ext' => :'ext',
+        :'frl_status' => :'frl_status',
         :'gender' => :'gender',
         :'grade' => :'grade',
         :'graduation_year' => :'graduation_year',
@@ -118,6 +121,7 @@ module CleverV3
         :'credentials' => :'Credentials',
         :'dob' => :'String',
         :'ell_status' => :'String',
+        :'frl_status' => :'String',
         :'enrollments' => :'Array<SchoolEnrollment>',
         :'ext' => :'Object',
         :'gender' => :'String',
@@ -145,6 +149,7 @@ module CleverV3
       Set.new([
         :'dob',
         :'ell_status',
+        :'frl_status',
         :'gender',
         :'grade',
         :'graduation_year',
@@ -188,6 +193,10 @@ module CleverV3
 
       if attributes.key?(:'ell_status')
         self.ell_status = attributes[:'ell_status']
+      end
+
+      if attributes.key?(:'frl_status')
+        self.frl_status = attributes[:'frl_status']
       end
 
       if attributes.key?(:'enrollments')
@@ -283,6 +292,8 @@ module CleverV3
     def valid?
       ell_status_validator = EnumAttributeValidator.new('String', ['Y', 'N', ''])
       return false unless ell_status_validator.valid?(@ell_status)
+      frl_status_validator = EnumAttributeValidator.new('String', ["Free", "Reduced", "Paid", ""])
+      return false unless frl_status_validator.valid?(@frl_status)
       gender_validator = EnumAttributeValidator.new('String', ['M', 'F', 'X', ''])
       return false unless gender_validator.valid?(@gender)
       grade_validator = EnumAttributeValidator.new('String', ['InfantToddler', 'Preschool', 'PreKindergarten', 'TransitionalKindergarten', 'Kindergarten', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', 'PostGraduate', 'Ungraded', 'Other', ''])
@@ -304,6 +315,16 @@ module CleverV3
         fail ArgumentError, "invalid value for \"ell_status\", must be one of #{validator.allowable_values}."
       end
       @ell_status = ell_status
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] frl_status Object to be assigned
+    def frl_status=(frl_status)
+      validator = EnumAttributeValidator.new('String', ["Free", "Reduced", "Paid", ""])
+      unless validator.valid?(frl_status)
+        fail ArgumentError, "invalid value for 'frl_status', must be one of #{validator.allowable_values}."
+      end
+      @frl_status = frl_status
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -365,6 +386,7 @@ module CleverV3
           credentials == o.credentials &&
           dob == o.dob &&
           ell_status == o.ell_status &&
+          frl_status == o.frl_status &&
           enrollments == o.enrollments &&
           ext == o.ext &&
           gender == o.gender &&
@@ -395,7 +417,7 @@ module CleverV3
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created, credentials, dob, ell_status, enrollments, ext, gender, grade, graduation_year, hispanic_ethnicity, home_language, iep_status, last_modified, legacy_id, location, race, school, schools, sis_id, state_id, student_number, unweighted_gpa, weighted_gpa].hash
+      [created, credentials, dob, ell_status, frl_status, enrollments, ext, gender, grade, graduation_year, hispanic_ethnicity, home_language, iep_status, last_modified, legacy_id, location, race, school, schools, sis_id, state_id, student_number, unweighted_gpa, weighted_gpa].hash
     end
 
     # Builds the object from hash
